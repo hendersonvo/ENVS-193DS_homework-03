@@ -1,0 +1,25 @@
+---
+title: "ENVS-193DS_homework-03"
+author: "Henderson Vo"
+date: "2026-03-02"
+format: 
+  html:
+    toc: TRUE
+execute:
+  messages: FALSE
+  warnings: FALSE
+---
+[Github repository](https://github.com/hendersonvo/ENVS-193DS_homework-03#)
+
+# Set up
+```{r}
+# load libraries
+library(tidyverse)
+library(here)
+library(janitor)
+library(readxl)
+
+# read data
+salinity <- read_csv(here("data", "salinity-pickleweed.csv"))
+```
+
