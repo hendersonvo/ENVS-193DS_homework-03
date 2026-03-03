@@ -1,2 +1,8 @@
 # ENVS-193DS_homework-03
 Homework 3 assignment for ENVS 193DS winter 2026
+
+# General information
+
+# Data and file information
+
+# Rendered output
