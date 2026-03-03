@@ -6,8 +6,8 @@ format:
   html:
     toc: TRUE
 execute:
-  messages: FALSE
-  warnings: FALSE
+  message: FALSE
+  warning: FALSE
 ---
 [Github repository](https://github.com/hendersonvo/ENVS-193DS_homework-03#)
 
@@ -20,7 +20,8 @@ library(janitor)
 library(readxl)
 
 # read data
-salinity <- read_csv(here("data", "salinity-pickleweed.csv")) |> 
+salinity <- read_csv(here("data", "salinity-pickleweed.csv"))
+salinity_clean <- salinity |> 
   clean_names() |> 
   rename(salinity_ms_cm = salinity_m_s_cm)
 personal <- read_csv(here("data", "envs193ds-personal-data.csv"))
@@ -32,7 +33,23 @@ personal <- read_csv(here("data", "envs193ds-personal-data.csv"))
 
 ### a. An appropriate test
 
-There are two appropriate ways to test the strength of the relationship between salinity and California pickleweed biomass: Pearson's correlation test and a Spearman rank correlation test. The Pearson's correlation test is a parametric test (uses precise data values, not ranks), and we can use it because our variables are continuous and normally distributed. On the other hand, the Spearman rank correlation is a nonparametric test (uses ranks, not precise data values), and we can use it because there is a monotonic relationship between our variables. 
+There are two appropriate ways to test the strength of the relationship between salinity and California pickleweed biomass: Pearson's correlation test and a Spearman rank correlation test. The Pearson's correlation test is a parametric test (uses precise data values, not ranks), and it might be appropriate because our variables are continuous and we can check for normality. On the other hand, the Spearman rank correlation is a nonparametric test (uses ranks, not precise data values), and it might be appropriate because we can check for a monotonic relationship between our variables. 
+
+### b. Create a visualization
+
+```{r}
+ggplot(data = salinity_clean,
+       aes(x = salinity_ms_cm,
+           y = pickleweed)) + 
+  geom_point(color = "turquoise3") +
+  labs(x = "Salinity (in mS/cm)",
+       y = "California pickleweed biomass (in g)",
+       title = "Scatterplot of pickleweed biomass vs. salinity") +
+  theme_minimal()
+```
+
+### c. Check your assumptions and run your test
+
 
 
 ## Problem 2. Personal data
