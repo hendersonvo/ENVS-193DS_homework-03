@@ -38,18 +38,53 @@ There are two appropriate ways to test the strength of the relationship between 
 ### b. Create a visualization
 
 ```{r}
-ggplot(data = salinity_clean,
-       aes(x = salinity_ms_cm,
-           y = pickleweed)) + 
-  geom_point(color = "turquoise3") +
-  labs(x = "Salinity (in mS/cm)",
+ggplot(data = salinity_clean, # use cleaned salinity data
+       aes(x = salinity_ms_cm, # set salinity to x-axis 
+           y = pickleweed)) +  # set biomass to y-axis
+  geom_point(color = "turquoise3") + # change point colors
+  labs(x = "Salinity (in mS/cm)", # add labels to axes and add title
        y = "California pickleweed biomass (in g)",
        title = "Scatterplot of pickleweed biomass vs. salinity") +
-  theme_minimal()
+  theme_minimal() # change theme
 ```
 
 ### c. Check your assumptions and run your test
 
+#### Checking assumptions
+
+We want to run a Pearson's correlation test, so we will check for continuity and normality in our variables.
+
+We already know that salinity and biomass are both continuous variables because they can take on any values in a given range. Our first assumption is correct!
+
+Now we will check for normality.
+
+```{r}
+#| label: qq plot for salinity
+ggplot(data = salinity_clean, # used cleaned salinity data
+       aes(sample = salinity_ms_cm)) + # set salinity measurements against theoretical values
+  geom_qq_line(color = "red") + # add a reference line, make it red
+  geom_qq() + # add the rest of the qq plot
+  labs(title = "QQ plot of salinity variable data") + # add a title 
+  theme_minimal() # change the theme
+```
+
+Our salinity data appears to be relatively normal based on how our points (observations) roughly follow the red line (perfect normal distribution). Let's check our pickleweed biomass next.
+
+```{r}
+#| label: qq plot for biomass
+ggplot(data = salinity_clean, # use cleaned salinity data
+       aes(sample = pickleweed)) + # set biomass data against theoretical values
+  geom_qq_line(color = "red") + # add a reference line, make it red
+  geom_qq() + # add the rest of the qq plot
+  labs(title = "QQ plot of pickleweed biomass variable data") + # add a title
+  theme_minimal() # change the theme
+```
+
+Our pickleweed biomass observations appear to also be relatively normal because these points similarly appear to roughly follow the line.
+
+Since our two variables both appear to be relatively normal, and they are both continuous, we can continue with the test!
+
+#### Running the test
 
 
 ## Problem 2. Personal data
