@@ -92,9 +92,9 @@ cor.test(x = salinity_clean$salinity_ms_cm, # first variable
          method = "pearson") # select type of correlation test, Pearson in this case
 ```
 
-We can see that we have found a moderate relationship between soil salinity and pickleweed biomass (Pearson's r = 0.53, t(21) = 2.90, p = 0.009, $\alpha$ = 0.05).
-
 ### d. Results communication
+
+To evaluate the strength of the relationship between pickleweed biomass and soil salinity, we used a Pearson's correlation test which is designed to test the correlation between two continuous, normally distributed variables. We can see that we have found a moderate relationship between soil salinity and pickleweed biomass (Pearson's r = 0.53, t(21) = 2.90, p = 0.009, $\alpha$ = 0.05).
 
 ### e. Test implications
 
