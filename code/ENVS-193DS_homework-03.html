@@ -73,6 +73,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="ENVS-193DS_homework-03_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="ENVS-193DS_homework-03_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -92,6 +121,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#a.-an-appropriate-test" id="toc-a.-an-appropriate-test" class="nav-link" data-scroll-target="#a.-an-appropriate-test">a. An appropriate test</a></li>
   <li><a href="#b.-create-a-visualization" id="toc-b.-create-a-visualization" class="nav-link" data-scroll-target="#b.-create-a-visualization">b. Create a visualization</a></li>
   <li><a href="#c.-check-your-assumptions-and-run-your-test" id="toc-c.-check-your-assumptions-and-run-your-test" class="nav-link" data-scroll-target="#c.-check-your-assumptions-and-run-your-test">c.&nbsp;Check your assumptions and run your test</a></li>
+  <li><a href="#d.-results-communication" id="toc-d.-results-communication" class="nav-link" data-scroll-target="#d.-results-communication">d.&nbsp;Results communication</a></li>
+  <li><a href="#e.-test-implications" id="toc-e.-test-implications" class="nav-link" data-scroll-target="#e.-test-implications">e. Test implications</a></li>
+  <li><a href="#f.-double-check-your-own-work" id="toc-f.-double-check-your-own-work" class="nav-link" data-scroll-target="#f.-double-check-your-own-work">f.&nbsp;Double check your own work</a></li>
   </ul></li>
   <li><a href="#problem-2.-personal-data" id="toc-problem-2.-personal-data" class="nav-link" data-scroll-target="#problem-2.-personal-data">Problem 2. Personal data</a></li>
   <li><a href="#problem-3.-affective-visualization" id="toc-problem-3.-affective-visualization" class="nav-link" data-scroll-target="#problem-3.-affective-visualization">Problem 3. Affective visualization</a></li>
@@ -222,7 +254,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="running-the-test" class="level4">
 <h4 class="anchored" data-anchor-id="running-the-test">Running the test</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(<span class="at">x =</span> salinity_clean<span class="sc">$</span>salinity_ms_cm, <span class="co"># first variable</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> salinity_clean<span class="sc">$</span>pickleweed, <span class="co"># second variable</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"pearson"</span>) <span class="co"># select type of correlation test, Pearson in this case</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  salinity_clean$salinity_ms_cm and salinity_clean$pickleweed
+t = 2.8979, df = 21, p-value = 0.008605
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.1568265 0.7757682
+sample estimates:
+      cor 
+0.5344778 </code></pre>
+</div>
+</div>
+<p>We can see that we have found a moderate relationship between soil salinity and pickleweed biomass (Pearson’s r = 0.53, t(21) = 2.90, p = 0.009, <span class="math inline">\(\alpha\)</span> = 0.05).</p>
 </section>
+</section>
+<section id="d.-results-communication" class="level3">
+<h3 class="anchored" data-anchor-id="d.-results-communication">d.&nbsp;Results communication</h3>
+</section>
+<section id="e.-test-implications" class="level3">
+<h3 class="anchored" data-anchor-id="e.-test-implications">e. Test implications</h3>
+</section>
+<section id="f.-double-check-your-own-work" class="level3">
+<h3 class="anchored" data-anchor-id="f.-double-check-your-own-work">f.&nbsp;Double check your own work</h3>
 </section>
 </section>
 <section id="problem-2.-personal-data" class="level2">

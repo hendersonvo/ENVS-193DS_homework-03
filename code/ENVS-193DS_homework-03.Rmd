@@ -86,6 +86,19 @@ Since our two variables both appear to be relatively normal, and they are both c
 
 #### Running the test
 
+```{r}
+cor.test(x = salinity_clean$salinity_ms_cm, # first variable
+         y = salinity_clean$pickleweed, # second variable
+         method = "pearson") # select type of correlation test, Pearson in this case
+```
+
+We can see that we have found a moderate relationship between soil salinity and pickleweed biomass (Pearson's r = 0.53, t(21) = 2.90, p = 0.009, $\alpha$ = 0.05).
+
+### d. Results communication
+
+### e. Test implications
+
+### f. Double check your own work
 
 ## Problem 2. Personal data
 
