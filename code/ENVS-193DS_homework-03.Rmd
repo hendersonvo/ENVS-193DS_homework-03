@@ -27,7 +27,8 @@ salinity_clean <- salinity |>
   clean_names() |> 
   rename(salinity_ms_cm = salinity_m_s_cm)
 personal <- read_csv(here("data", "envs193ds-personal-data.csv")) |> 
-  clean_names()
+  clean_names() |> 
+  mutate(date = as.Date(date, format = "%m/%d/%Y"))
 ```
 
 # Part 2. Problems
@@ -182,6 +183,7 @@ ggplot(data = personal, # use personal data
   theme_minimal() + # change the theme
   theme(legend.position = "none") # remove the legend
 ```
+
 ### b. Captions
 
 
@@ -189,6 +191,8 @@ ggplot(data = personal, # use personal data
 ## Problem 3. Affective visualization
 
 ### a. Describe in words what an affective visualization could look like for your personal data (3-5 sentences).
+
+Since the data I collected was about the number of steps I took everyday, I could create a setting like a trail and use footprints to represent individual observations. I can also use the time series of step counts to act like a mountain range in the background. I can use colors to indicate the magnitude of steps I took, and use different kinds of trimmings to indicate my categorical variables like my on-call status on a particular day. 
 
 ### b. Create a sketch (on paper) of your idea.
 
