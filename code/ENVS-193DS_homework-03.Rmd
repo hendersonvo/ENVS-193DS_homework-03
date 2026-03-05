@@ -1,5 +1,5 @@
 ---
-title: "ENVS-193DS_homework-03"
+title: "ENVS 193DS: Homework 3"
 author: "Henderson Vo"
 date: "2026-03-02"
 format: 
@@ -9,9 +9,11 @@ execute:
   message: FALSE
   warning: FALSE
 ---
+
 [Github repository](https://github.com/hendersonvo/ENVS-193DS_homework-03#)
 
 # Part 1. Set up tasks
+
 ```{r}
 # load libraries
 library(tidyverse)
@@ -34,7 +36,7 @@ personal <- read_csv(here("data", "envs193ds-personal-data.csv")) |>
 
 ### a. An appropriate test
 
-There are two appropriate ways to test the strength of the relationship between salinity and California pickleweed biomass: Pearson's correlation test and a Spearman rank correlation test. The Pearson's correlation test is a parametric test (uses precise data values, not ranks), and it might be appropriate because our variables are continuous and we can check for normality. On the other hand, the Spearman rank correlation is a nonparametric test (uses ranks, not precise data values), and it might be appropriate because we can check for a monotonic relationship between our variables. 
+There are two appropriate ways to test the strength of the relationship between salinity and California pickleweed biomass: Pearson's correlation test and a Spearman rank correlation test. The Pearson's correlation test is a parametric test (uses precise data values, not ranks), and it might be appropriate because our variables are continuous and we can check for normality. On the other hand, the Spearman rank correlation is a nonparametric test (uses ranks, not precise data values), and it might be appropriate because we can check for a monotonic relationship between our variables.
 
 ### b. Create a visualization
 
@@ -42,7 +44,8 @@ There are two appropriate ways to test the strength of the relationship between 
 ggplot(data = salinity_clean, # use cleaned salinity data
        aes(x = salinity_ms_cm, # set salinity to x-axis 
            y = pickleweed)) +  # set biomass to y-axis
-  geom_point(color = "turquoise3") + # change point colors
+  geom_point(color = "turquoise3",# change point colors
+             size = 2.5) + # make points bigger
   labs(x = "Salinity (in mS/cm)", # add labels to axes and add title
        y = "California pickleweed biomass (in g)",
        title = "Scatterplot of pickleweed biomass vs. salinity") +
@@ -53,11 +56,13 @@ ggplot(data = salinity_clean, # use cleaned salinity data
 
 #### Checking assumptions
 
-We want to run a Pearson's correlation test, so we will check for continuity and normality in our variables.
+We want to run a Pearson's correlation test, so we will check for (1) continuity and (2) normality within our two variables, (3) independence of observations, and (4) a linear relationship between our two variables. 
 
-We already know that salinity and biomass are both continuous variables because they can take on any values in a given range. Our first assumption is correct!
+We already know that salinity and biomass are both continuous variables because they can take on any values in a given range. Our first assumption is correct! Additionally, if we know that our observations were taken randomly, then we can assume that the measurements of one pickleweed individual should not be influenced by the measurements of another pickleweed individual. Then each observation is independent and the third assumption is correct!
 
 Now we will check for normality.
+
+**Visual checks: normality**
 
 ```{r}
 #| label: qq plot for salinity
@@ -69,7 +74,7 @@ ggplot(data = salinity_clean, # used cleaned salinity data
   theme_minimal() # change the theme
 ```
 
-Our salinity data appears to be relatively normal based on how our points (observations) roughly follow the red line (perfect normal distribution). Let's check our pickleweed biomass next.
+The red line in this plot represents a theoretical normal distribution, so if our points fall directly on the red line, we would conclude that our data is perfectly normal. We can see that our salinity data appears to be relatively normal based on how our points (observations) roughly follow the red line. Let's check our pickleweed biomass next.
 
 ```{r}
 #| label: qq plot for biomass
@@ -81,9 +86,29 @@ ggplot(data = salinity_clean, # use cleaned salinity data
   theme_minimal() # change the theme
 ```
 
-Our pickleweed biomass observations appear to also be relatively normal because these points similarly appear to roughly follow the line.
+Our pickleweed biomass observations appear to also be relatively normal because, aside from the tail ends, these points similarly appear to roughly follow the line. We can look past the minor deviations since Pearson's correlation test is robust to slight violations in normality at the tails.
 
-Since our two variables both appear to be relatively normal, and they are both continuous, we can continue with the test!
+**Visual check: linearity**
+
+We'll revisit the scatterplot we created above.
+
+```{r}
+ggplot(data = salinity_clean, # use cleaned salinity data
+       aes(x = salinity_ms_cm, # set salinity to x-axis 
+           y = pickleweed)) +  # set biomass to y-axis
+  geom_point(color = "turquoise3",# change point colors
+             size = 2.5) + # make points bigger
+  labs(x = "Salinity (in mS/cm)", # add labels to axes and add title
+       y = "California pickleweed biomass (in g)",
+       title = "Scatterplot of pickleweed biomass vs. salinity") +
+  theme_minimal() # change theme
+```
+
+We can see that as we follow the plot along the x-axis to the right, the points also visually seem to shift further upwards along the y-axis. These shifts seem to be consistent as we move along the x-axis (the points don't begin to curve or switch directions), so we can confirm linearity between our soil salinity and pickleweed biomass variables.
+
+**Conclusion**
+
+Since our two variables both appear to be relatively normal, they are both continuous, the observations are independent, and the relationship between the two variables is linear, we can continue with the test!
 
 #### Running the test
 
@@ -99,7 +124,7 @@ To evaluate the strength of the relationship between pickleweed biomass and soil
 
 ### e. Test implications
 
-We have found that the relationship between pickleweed biomass and soil salinity is positive and moderately strong. This means that, on average, where we observe higher salinity soils, we might also expect to see higher pickleweed biomass. This implies that if restoration teams treat higher pickleweed biomass as a measure of restoration success, then they should consider having higher salinity soil at their restoration sites. 
+We have found that the relationship between pickleweed biomass and soil salinity is positive and moderately strong. This means that, on average, where we observe higher salinity soils, we might also expect to see higher pickleweed biomass. This implies that if restoration teams treat higher pickleweed biomass as a measure of restoration success, then they should consider having higher salinity soil at their restoration sites.
 
 ### f. Double check your own work
 
@@ -133,7 +158,6 @@ ggplot(data = personal, # use personal data
   theme(legend.position = "none") # remove the legend
 ```
 
-
 ```{r}
 ggplot(data = personal, # use personal data
        aes(x = weather, # set x-axis to predictor variable (weather)
@@ -166,11 +190,43 @@ ggplot(data = personal, # use personal data
        title = "Scatterplot showing steps taken vs. caffeine consumed",
        color = "Weekday") +
   theme_minimal() # change the theme
+
 ```
 
 ### b. Captions
 
-
 ## Problem 3. Affective visualization
 
+### a. Describe in words what an affective visualization could look like for your personal data (3-5 sentences).
+
+### b. Create a sketch (on paper) of your idea.
+
+### c. Make a draft of your visualization.
+
+### d. Write an artist statement
+
+### e. Prep your materials to share it in class.
+
+[View.](https://docs.google.com/presentation/d/1vGScMg_0jbmKZA3vX-yRTrWSo4_ykWvme4L-Mit0twE/edit?usp=sharing)
+
 ## Problem 4. Statistical critique
+
+### a. Revisit and summarize
+
+For this figure, the x-axis describes the time of the treatment application in days and the y-axis describes the percent cover. This figure is meant to demonstrate how different fouling species population changed over time following a treatment of increased temperature. We can see from the figure that, on average, populations are larger in ambient treatments compared to heat-wave treatments, and invasives tend to recover more quickly than natives.
+
+![Changes in (a) total percent cover and (b) percent cover by species and treatment](../images/heatwave_figure3.jpg)
+
+### b. Visual clarity
+
+How clearly did the authors visually represent their statistics in figures? For example, are the x- and y-axes in a logical position? Do they show summary statistics (means and SE, for example) and/or model predictions, and if so, do they show the underlying data?
+
+### c. Aesthetic clarity
+
+How well did the authors handle “visual clutter”? How would you describe the the data:ink ratio?
+
+Remember that data:ink ratio is not an actual ratio, but a way of thinking about the amount of visual clutter relative to the information being presented.
+
+### d. Recommendations
+
+In 2-4 sentences, outline what recommendations would you make to make the figure or table better. What would you take out, add, or change? Provide explanations/justifications for each of your recommendations.
