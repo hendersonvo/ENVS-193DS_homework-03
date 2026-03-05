@@ -104,7 +104,7 @@ ggplot(data = salinity_clean, # use cleaned salinity data
   theme_minimal() # change theme
 ```
 
-We can see that as we follow the plot along the x-axis to the right, the points also visually seem to shift further upwards along the y-axis. These shifts seem to be consistent as we move along the x-axis (the points don't begin to curve or switch directions), so we can confirm linearity between our soil salinity and pickleweed biomass variables.
+We can see that as we follow the plot along the x-axis to the right, the points also visually seem to shift further upwards along the y-axis. These shifts seem to be consistent as we move along the x-axis (the points don't begin to follow a curved path or switch directions), so we can confirm linearity between our soil salinity and pickleweed biomass variables.
 
 **Conclusion**
 
@@ -134,11 +134,13 @@ cor.test(x = salinity_clean$salinity_ms_cm, # first variable
          method = "spearman") # select type of correlation test, Spearman in this case
 ```
 
-These results also reflect a moderate positive relationship between soil salinity and pickleweed biomass (Spearman $\rho$ = 0.59, S = 824, p = 0.003, $\alpha$ = 0.05).
+Based on the results of these two tests, I would have made the same decision to reject the null hypothesis: that the true correlation between the two variables is equal to 0; and I would have also made the same biological interpretation: these results also reflect a moderate positive relationship between soil salinity and pickleweed biomass (Spearman $\rho$ = 0.59, S = 824, p = 0.003, $\alpha$ = 0.05). We can see that the Pearson test gave us a significant (p = 0.008) correlation value (`cor`) of 0.53 and the Spearman test gave us a significant (p = 0.003) correlation value (`rho`) of 0.59. Since we consider correlation coefficients ranging from |0.4| - |0.6| to be a moderate strength correlation, we would conclude in both tests that the correlation between soil salinity and pickleweed biomass is moderately strong.
 
 ## Problem 2. Personal data
 
 ### a. Updating your visualizations
+
+**Updated plot 1: steps vs. weekday**
 
 ```{r}
 ggplot(data = personal, # use personal data
@@ -151,49 +153,38 @@ ggplot(data = personal, # use personal data
               alpha = 0.6) + # adjust transparency
   scale_color_manual(values = c("Yes" = "blue",
                                 "No" = "orange")) +
-  labs(x = "Weekday (Yes/No)", # add labels to axes, and add a title
+  labs(x = "Weekday (Yes/No)", # add labels to axes, and add a title and subtitle
        y = "Number of steps taken",
-       title = "Boxplots showing the distribution of steps taken on \nweekdays vs. weekends") +
+       title = "Boxplots showing the distribution of steps taken on \nweekdays vs. weekends",
+       subtitle = "Most recent observation: 3/4/2026") +
   theme_minimal() + # change the theme
   theme(legend.position = "none") # remove the legend
 ```
+
+**New plot 2: steps vs. weather**
 
 ```{r}
 ggplot(data = personal, # use personal data
        aes(x = weather, # set x-axis to predictor variable (weather)
            y = steps_taken,
-           color = weekday)) + # differentiate by weekday
+           color = weather)) + # differentiate by weekday
   geom_boxplot(width = 0.4) + # add a boxplot, adjust width
   geom_jitter(width = 0.1, # add jitter points, adjust width
               height = 0, # no height jitter
               alpha = 0.6) + # adjust transparency 
-  facet_wrap(~ weekday) +
-  scale_color_manual(values = c("Yes" = "blue",
-                                "No" = "orange")) +
-  labs(x = "Weather", # add labels to axes, and add a title
+  scale_color_manual(values = c("Overcast" = "darkgrey",
+                                "Sunny" = "gold2",
+                                "Rainy" = "turquoise3")) +
+  labs(x = "Weather", # add labels to axes, and add a title and subtitle
        y = "Number of steps taken",
-       title = "Boxplots showing the distribution of steps taken on \nweekdays vs. weather types") +
+       title = "Boxplots showing the distribution of steps taken by weather type",
+       subtitle = "Most recent observation: 3/4/2026") +
   theme_minimal() + # change the theme
   theme(legend.position = "none") # remove the legend
 ```
-
-```{r}
-ggplot(data = personal, # use personal data
-       aes(x = caffeine_comsumed_mg, # set x- and y-axes to appropriate variables
-           y = steps_taken,
-           color = weekday)) + # differentiate by weekday
-  geom_point(alpha = 0.4) + # add points
-    scale_color_manual(values = c("Yes" = "blue",
-                                "No" = "orange")) +
-  labs(x = "Caffeine consumed (mg)", # add labels to axes, add a title, adjust legend title
-       y = "Steps taken",
-       title = "Scatterplot showing steps taken vs. caffeine consumed",
-       color = "Weekday") +
-  theme_minimal() # change the theme
-
-```
-
 ### b. Captions
+
+
 
 ## Problem 3. Affective visualization
 
@@ -219,14 +210,12 @@ For this figure, the x-axis describes the time of the treatment application in d
 
 ### b. Visual clarity
 
-How clearly did the authors visually represent their statistics in figures? For example, are the x- and y-axes in a logical position? Do they show summary statistics (means and SE, for example) and/or model predictions, and if so, do they show the underlying data?
+The authors of the paper visually represented their statistics in a logical way, since their x- and y-axes clearly and intuitively represent change in response variable (% cover on y-axis) over time (days on x-axis). The predictor variables (ambient/heatwave, native/invasive) are also differentiated with different lines on the same plot with a legend to aid the reader. They also show summary statistics, with each data point being the mean and bars representing $\pm$ 1 SE, however the underlying data is not included. 
 
 ### c. Aesthetic clarity
 
-How well did the authors handle “visual clutter”? How would you describe the the data:ink ratio?
-
-Remember that data:ink ratio is not an actual ratio, but a way of thinking about the amount of visual clutter relative to the information being presented.
+I think the authors have a pretty low data:ink ratio, or a higher level of visual clutter compared to the information being shown. For instance, the authors fit two plots into one figure, which stretches and distorts each plot and automatically increases the amount of interpretation required of the reader. Secondly, there are many symbols on the screen indicating treatment, species type, and significance--many of which overlap--and two legends instead of one for the figure. However, the authors do succeed in removing grid lines and unnecessary borders. 
 
 ### d. Recommendations
 
-In 2-4 sentences, outline what recommendations would you make to make the figure or table better. What would you take out, add, or change? Provide explanations/justifications for each of your recommendations.
+I would split up the figure into two separate figures as figure 3a and figure 3b. This immediately reduces the amount of visual clutter on one figure and gives each plot the necessary white space to accommodate the various symbols and legends. With the additional space, the other points I made about overlapping elements and additional legends would feel less impactful.

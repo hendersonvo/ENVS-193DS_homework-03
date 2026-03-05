@@ -198,8 +198,7 @@ window.Quarto = {
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">salinity_ms_cm =</span> salinity_m_s_cm)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>personal <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"envs193ds-personal-data.csv"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>image <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"images"</span>, <span class="st">"heatwave_figure3.jpg"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="part-2.-problems" class="level1">
@@ -291,7 +290,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>We can see that as we follow the plot along the x-axis to the right, the points also visually seem to shift further upwards along the y-axis. These shifts seem to be consistent as we move along the x-axis (the points don’t begin to curve or switch directions), so we can confirm linearity between our soil salinity and pickleweed biomass variables.</p>
+<p>We can see that as we follow the plot along the x-axis to the right, the points also visually seem to shift further upwards along the y-axis. These shifts seem to be consistent as we move along the x-axis (the points don’t begin to follow a curved path or switch directions), so we can confirm linearity between our soil salinity and pickleweed biomass variables.</p>
 <p><strong>Conclusion</strong></p>
 <p>Since our two variables both appear to be relatively normal, they are both continuous, the observations are independent, and the relationship between the two variables is linear, we can continue with the test!</p>
 </section>
@@ -343,13 +342,14 @@ sample estimates:
 0.5928854 </code></pre>
 </div>
 </div>
-<p>These results also reflect a moderate positive relationship between soil salinity and pickleweed biomass (Spearman <span class="math inline">\(\rho\)</span> = 0.59, S = 824, p = 0.003, <span class="math inline">\(\alpha\)</span> = 0.05).</p>
+<p>Based on the results of these two tests, I would have made the same decision to reject the null hypothesis: that the true correlation between the two variables is equal to 0; and I would have also made the same biological interpretation: these results also reflect a moderate positive relationship between soil salinity and pickleweed biomass (Spearman <span class="math inline">\(\rho\)</span> = 0.59, S = 824, p = 0.003, <span class="math inline">\(\alpha\)</span> = 0.05). We can see that the Pearson test gave us a significant (p = 0.008) correlation value (<code>cor</code>) of 0.53 and the Spearman test gave us a significant (p = 0.003) correlation value (<code>rho</code>) of 0.59. Since we consider correlation coefficients ranging from |0.4| - |0.6| to be a moderate strength correlation, we would conclude in both tests that the correlation between soil salinity and pickleweed biomass is moderately strong.</p>
 </section>
 </section>
 <section id="problem-2.-personal-data" class="level2">
 <h2 class="anchored" data-anchor-id="problem-2.-personal-data">Problem 2. Personal data</h2>
 <section id="a.-updating-your-visualizations" class="level3">
 <h3 class="anchored" data-anchor-id="a.-updating-your-visualizations">a. Updating your visualizations</h3>
+<p><strong>Updated plot 1: steps vs.&nbsp;weekday</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> personal, <span class="co"># use personal data</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> weekday, <span class="co"># set x-axis to predictor variable (weekday)</span></span>
@@ -361,11 +361,12 @@ sample estimates:
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> <span class="co"># adjust transparency</span></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"blue"</span>,</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"No"</span> <span class="ot">=</span> <span class="st">"orange"</span>)) <span class="sc">+</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Weekday (Yes/No)"</span>, <span class="co"># add labels to axes, and add a title</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Weekday (Yes/No)"</span>, <span class="co"># add labels to axes, and add a title and subtitle</span></span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of steps taken"</span>,</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Boxplots showing the distribution of steps taken on </span><span class="sc">\n</span><span class="st">weekdays vs. weekends"</span>) <span class="sc">+</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co"># change the theme</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="co"># remove the legend</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Boxplots showing the distribution of steps taken on </span><span class="sc">\n</span><span class="st">weekdays vs. weekends"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Most recent observation: 3/4/2026"</span>) <span class="sc">+</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co"># change the theme</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="co"># remove the legend</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -374,48 +375,29 @@ sample estimates:
 </div>
 </div>
 </div>
+<p><strong>New plot 2: steps vs.&nbsp;weather</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> personal, <span class="co"># use personal data</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> weather, <span class="co"># set x-axis to predictor variable (weather)</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> steps_taken,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> weekday)) <span class="sc">+</span> <span class="co"># differentiate by weekday</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> weather)) <span class="sc">+</span> <span class="co"># differentiate by weekday</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span> <span class="co"># add a boxplot, adjust width</span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="co"># add jitter points, adjust width</span></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">height =</span> <span class="dv">0</span>, <span class="co"># no height jitter</span></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> <span class="co"># adjust transparency </span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> weekday) <span class="sc">+</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"blue"</span>,</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"No"</span> <span class="ot">=</span> <span class="st">"orange"</span>)) <span class="sc">+</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Weather"</span>, <span class="co"># add labels to axes, and add a title</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Overcast"</span> <span class="ot">=</span> <span class="st">"darkgrey"</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Sunny"</span> <span class="ot">=</span> <span class="st">"gold2"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Rainy"</span> <span class="ot">=</span> <span class="st">"turquoise3"</span>)) <span class="sc">+</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Weather"</span>, <span class="co"># add labels to axes, and add a title and subtitle</span></span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of steps taken"</span>,</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Boxplots showing the distribution of steps taken on </span><span class="sc">\n</span><span class="st">weekdays vs. weather types"</span>) <span class="sc">+</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co"># change the theme</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="co"># remove the legend</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Boxplots showing the distribution of steps taken by weather type"</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Most recent observation: 3/4/2026"</span>) <span class="sc">+</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co"># change the theme</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="co"># remove the legend</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="ENVS-193DS_homework-03_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> personal, <span class="co"># use personal data</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> caffeine_comsumed_mg, <span class="co"># set x- and y-axes to appropriate variables</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> steps_taken,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> weekday)) <span class="sc">+</span> <span class="co"># differentiate by weekday</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span> <span class="co"># add points</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"blue"</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"No"</span> <span class="ot">=</span> <span class="st">"orange"</span>)) <span class="sc">+</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Caffeine consumed (mg)"</span>, <span class="co"># add labels to axes, add a title, adjust legend title</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Steps taken"</span>,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Scatterplot showing steps taken vs. caffeine consumed"</span>,</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Weekday"</span>) <span class="sc">+</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="co"># change the theme</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ENVS-193DS_homework-03_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -458,16 +440,15 @@ sample estimates:
 </section>
 <section id="b.-visual-clarity" class="level3">
 <h3 class="anchored" data-anchor-id="b.-visual-clarity">b. Visual clarity</h3>
-<p>How clearly did the authors visually represent their statistics in figures? For example, are the x- and y-axes in a logical position? Do they show summary statistics (means and SE, for example) and/or model predictions, and if so, do they show the underlying data?</p>
+<p>The authors of the paper visually represented their statistics in a logical way, since their x- and y-axes clearly and intuitively represent change in response variable (% cover on y-axis) over time (days on x-axis). The predictor variables (ambient/heatwave, native/invasive) are also differentiated with different lines on the same plot with a legend to aid the reader. They also show summary statistics, with each data point being the mean and bars representing <span class="math inline">\(\pm\)</span> 1 SE, however the underlying data is not included.</p>
 </section>
 <section id="c.-aesthetic-clarity" class="level3">
 <h3 class="anchored" data-anchor-id="c.-aesthetic-clarity">c.&nbsp;Aesthetic clarity</h3>
-<p>How well did the authors handle “visual clutter”? How would you describe the the data:ink ratio?</p>
-<p>Remember that data:ink ratio is not an actual ratio, but a way of thinking about the amount of visual clutter relative to the information being presented.</p>
+<p>I think the authors have a pretty low data:ink ratio, or a higher level of visual clutter compared to the information being shown. For instance, the authors fit two plots into one figure, which stretches and distorts each plot and automatically increases the amount of interpretation required of the reader. Secondly, there are many symbols on the screen indicating treatment, species type, and significance–many of which overlap–and two legends instead of one for the figure. However, the authors do succeed in removing grid lines and unnecessary borders.</p>
 </section>
 <section id="d.-recommendations" class="level3">
 <h3 class="anchored" data-anchor-id="d.-recommendations">d.&nbsp;Recommendations</h3>
-<p>In 2-4 sentences, outline what recommendations would you make to make the figure or table better. What would you take out, add, or change? Provide explanations/justifications for each of your recommendations.</p>
+<p>I would split up the figure into two separate figures as figure 3a and figure 3b. This immediately reduces the amount of visual clutter on one figure and gives each plot the necessary white space to accommodate the various symbols and legends. With the additional space, the other points I made about overlapping elements and additional legends would feel less impactful.</p>
 </section>
 </section>
 </section>
