@@ -24,7 +24,8 @@ salinity <- read_csv(here("data", "salinity-pickleweed.csv"))
 salinity_clean <- salinity |> 
   clean_names() |> 
   rename(salinity_ms_cm = salinity_m_s_cm)
-personal <- read_csv(here("data", "envs193ds-personal-data.csv"))
+personal <- read_csv(here("data", "envs193ds-personal-data.csv")) |> 
+  clean_names()
 ```
 
 # Part 2. Problems
@@ -94,13 +95,81 @@ cor.test(x = salinity_clean$salinity_ms_cm, # first variable
 
 ### d. Results communication
 
-To evaluate the strength of the relationship between pickleweed biomass and soil salinity, we used a Pearson's correlation test which is designed to test the correlation between two continuous, normally distributed variables. We can see that we have found a moderate relationship between soil salinity and pickleweed biomass (Pearson's r = 0.53, t(21) = 2.90, p = 0.009, $\alpha$ = 0.05).
+To evaluate the strength of the relationship between pickleweed biomass and soil salinity, we used a Pearson's correlation test which is designed to test the correlation between two continuous, normally distributed variables. We can see that we have found a moderate positive relationship between soil salinity and pickleweed biomass (Pearson's r = 0.53, t(21) = 2.90, p = 0.009, $\alpha$ = 0.05).
 
 ### e. Test implications
 
+We have found that the relationship between pickleweed biomass and soil salinity is positive and moderately strong. This means that, on average, where we observe higher salinity soils, we might also expect to see higher pickleweed biomass. This implies that if restoration teams treat higher pickleweed biomass as a measure of restoration success, then they should consider having higher salinity soil at their restoration sites. 
+
 ### f. Double check your own work
 
+```{r}
+cor.test(x = salinity_clean$salinity_ms_cm, # first variable
+         y = salinity_clean$pickleweed, # second variable
+         method = "spearman") # select type of correlation test, Spearman in this case
+```
+
+These results also reflect a moderate positive relationship between soil salinity and pickleweed biomass (Spearman $\rho$ = 0.59, S = 824, p = 0.003, $\alpha$ = 0.05).
+
 ## Problem 2. Personal data
+
+### a. Updating your visualizations
+
+```{r}
+ggplot(data = personal, # use personal data
+       aes(x = weekday, # set x-axis to predictor variable (weekday)
+           y = steps_taken, # set y-axis to response variable (steps)
+           color = weekday)) + # differentiate by weekday
+  geom_boxplot(width = 0.4) + # add a boxplot, adjust width
+  geom_jitter(width = 0.1, # add jitter points, adjust width
+              height = 0, # no height jitter
+              alpha = 0.6) + # adjust transparency
+  scale_color_manual(values = c("Yes" = "blue",
+                                "No" = "orange")) +
+  labs(x = "Weekday (Yes/No)", # add labels to axes, and add a title
+       y = "Number of steps taken",
+       title = "Boxplots showing the distribution of steps taken on \nweekdays vs. weekends") +
+  theme_minimal() + # change the theme
+  theme(legend.position = "none") # remove the legend
+```
+
+
+```{r}
+ggplot(data = personal, # use personal data
+       aes(x = weather, # set x-axis to predictor variable (weather)
+           y = steps_taken,
+           color = weekday)) + # differentiate by weekday
+  geom_boxplot(width = 0.4) + # add a boxplot, adjust width
+  geom_jitter(width = 0.1, # add jitter points, adjust width
+              height = 0, # no height jitter
+              alpha = 0.6) + # adjust transparency 
+  facet_wrap(~ weekday) +
+  scale_color_manual(values = c("Yes" = "blue",
+                                "No" = "orange")) +
+  labs(x = "Weather", # add labels to axes, and add a title
+       y = "Number of steps taken",
+       title = "Boxplots showing the distribution of steps taken on \nweekdays vs. weather types") +
+  theme_minimal() + # change the theme
+  theme(legend.position = "none") # remove the legend
+```
+
+```{r}
+ggplot(data = personal, # use personal data
+       aes(x = caffeine_comsumed_mg, # set x- and y-axes to appropriate variables
+           y = steps_taken,
+           color = weekday)) + # differentiate by weekday
+  geom_point(alpha = 0.4) + # add points
+    scale_color_manual(values = c("Yes" = "blue",
+                                "No" = "orange")) +
+  labs(x = "Caffeine consumed (mg)", # add labels to axes, add a title, adjust legend title
+       y = "Steps taken",
+       title = "Scatterplot showing steps taken vs. caffeine consumed",
+       color = "Weekday") +
+  theme_minimal() # change the theme
+```
+
+### b. Captions
+
 
 ## Problem 3. Affective visualization
 
