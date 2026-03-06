@@ -158,7 +158,7 @@ ggplot(data = personal, # use personal data
        y = "Number of steps taken",
        title = "Boxplots showing the distribution of steps taken on \nweekdays vs. weekends",
        subtitle = "Most recent observation: 3/4/2026") +
-  theme_minimal() + # change the theme
+  theme_classic() + # change the theme
   theme(legend.position = "none") # remove the legend
 ```
 
@@ -180,25 +180,33 @@ ggplot(data = personal, # use personal data
        y = "Number of steps taken",
        title = "Boxplots showing the distribution of steps taken by weather type",
        subtitle = "Most recent observation: 3/4/2026") +
-  theme_minimal() + # change the theme
+  theme_classic() + # change the theme
   theme(legend.position = "none") # remove the legend
 ```
 
 ### b. Captions
+**Figure 1. Number of steps does not differ between weekdays and weekends.** Boxes represent the Interquartile Range (IQR), the central line represents the median measurement, and the tails represent 1.5 $\times$ IQR. Individual points represent individual measurements in each day type (weekends: yellow, weekdays: blue). Weekdays appear to have a higher variance than weekends. Data source: collected by myself.
 
+**Figure 2. Number of steps does differ between different weather conditions.** Boxes represent the Interquartile Range (IQR), the central horizontal line represents the median measurement, and the tails represent 1.5 $\times$ IQR. Individual points represent individual measurements for each weather type (overcast: grey, rainy: blue, sunny: gold). Sunny days appear to have a higher variance than other conditions. Data source: collected by myself. 
 
 
 ## Problem 3. Affective visualization
 
 ### a. Describe in words what an affective visualization could look like for your personal data (3-5 sentences).
 
-Since the data I collected was about the number of steps I took everyday, I could create a setting like a trail and use footprints to represent individual observations. I can also use the time series of step counts to act like a mountain range in the background. I can use colors to indicate the magnitude of steps I took, and use different kinds of trimmings to indicate my categorical variables like my on-call status on a particular day. 
+Since the data I collected was about the number of steps I took everyday, I could create a setting like a beach shore and use footprints to represent individual observations. I can also use the time series of step counts to shape the waves coming in from the ocean. I can use colors to indicate the magnitude of steps I took, and use different kinds of trimmings to indicate my categorical variables like my on-call status on a particular day. I could also make it look like I am drawing a calendar in the sand to articulate a structured arrangement of footprints. The number of toes can represent every 50mg of caffeine consumed on the day. 
 
 ### b. Create a sketch (on paper) of your idea.
 
+![My affective image sketch](../images/affective_sketch.jpg)
+
 ### c. Make a draft of your visualization.
 
+![First draft!](../images/affective_draft.png)
+
 ### d. Write an artist statement
+In this piece, I am showing the number of steps I take every day. The grid is meant to represent a calendar, with each grid representing one day in a Sunday-Saturday sequence. Each footprint represents data about the number of steps (color), whether I had caffeinated drinks that day (barefoot for caffeine vs. shoe for no caffeine), and whether I was on-call for my building (purple outline). I was inspired by Stefanie Posavec and Giorgia Lupi's Dear Data project where they use colors and symbolism to consolidate a day's worth of stories into little segments. I was also inspired by Jill Pelto's paintings which integrate graphs into depictions of natural landscapes, so I also included a time series of my step counts as part of the water. The form of my work is a digital portrait that I made in Canva. I created my work by using a beach template and organizing Canva elements to create the setting I wanted. I created the time series myself in Excel and overlayed the image over the rest of my work.
+
 
 ### e. Prep your materials to share it in class.
 
